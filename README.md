@@ -20,4 +20,4 @@ runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 This program built for learning and sharing only.
 
 ## License  
-This project is under NIT License.
+This project is under MIT License.
