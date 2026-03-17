@@ -10,7 +10,7 @@ bat / cmd
 
 ## Guide  
 ```
-git clone https://<username>:<token>@github.com/almalikzakwan/Ap24-Service.git
+git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
