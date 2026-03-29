@@ -7,8 +7,8 @@ for /f "usebackq delims=" %%i in (%filepath%) do (
     set "service_name=%%i"
 )
 
-echo "Restarting bitch Apache2D service....."
+echo Restarting bitch %service_name% service.....
 net stop %service_name%
 net start %service_name%
-echo "Apache2D successfully fucking restart"
+echo %service_name% successfully fucking restart
 pause
