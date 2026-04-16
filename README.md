@@ -17,12 +17,16 @@ runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 
 Create and place your config file path in **conf_file.py** as example below:  
 ```python
+import os
+
 def file_path():
+    path = "your/apache/path/here"
+
     return [
-        "E:/Apache/httpd-2.4.66-260223-Win64-VS18/Apache24/conf/httpd.conf",
-        "E:/Apache/httpd-2.4.66-260223-Win64-VS18/Apache24/conf/extra/httpd-ssl.conf",
-        "E:/Apache/httpd-2.4.66-260223-Win64-VS18/Apache24/conf/extra/httpd-vhosts.conf",
-        "E:/Apache/httpd-2.4.66-260223-Win64-VS18/Apache24/conf/extra/developments"
+        f"{path}/conf/httpd.conf",
+        f"{path}/conf/extra/httpd-ssl.conf",
+        f"{path}/conf/extra/httpd-vhosts.conf",
+        f"{path}/conf/extra/developments"
     ]
 ```
 
