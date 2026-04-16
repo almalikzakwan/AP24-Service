@@ -15,8 +15,6 @@ cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
 
-Create **service_name.txt** and place your Apache service name. Also change filepath in start.bat, status.bat and stop.bat .    
-
 Create and place your config file path in **conf_file.py** as example below:  
 ```python
 def file_path():
