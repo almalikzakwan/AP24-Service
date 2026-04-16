@@ -20,7 +20,8 @@ Create and place your config file path in **conf_file.py** as example below:
 import os
 
 def file_path():
-    path = "your/apache/path/here"
+    cwd = os.getcwd()
+    path = f"{cwd.replace("\\","/")}/../Apache24"
 
     return [
         f"{path}/conf/httpd.conf",
