@@ -61,7 +61,7 @@ def add_windows_firewall_rule(port, action="allow", protocol="TCP", direction="i
         "firewall",
         "add",
         "rule",
-        f"name=Apache2D Port {port}",
+        f"name=Apache Custom Port {port}",
         f"dir={direction}",
         f"action={action}",
         f"protocol={protocol}",
@@ -71,7 +71,7 @@ def add_windows_firewall_rule(port, action="allow", protocol="TCP", direction="i
     try:
         subprocess.run(command, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
-        print(f"Failed to add rule Apache2D Port {port}")
+        print(f"Failed to add rule Apache Custom Port {port}")
     except Exception as e:
         print(f"An unexpected error occured: {e}")
 

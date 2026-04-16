@@ -22,7 +22,6 @@ for /f "usebackq delims=" %%B in ("storage/recent.ssl.port") do (
 
 echo [INFO] Checking %service_name% status.. 
 sc query %service_name%
-echo [INFO] Here all the list. hope you know what the status of the service right now. 
-echo [WARN] this program will exit after timeout
+echo [WARN] this program will exit after timeout !
 timeout /t 44
 
