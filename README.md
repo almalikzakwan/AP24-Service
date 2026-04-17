@@ -9,6 +9,7 @@ python
 bat / cmd  
 
 ## Guide  
+git clone / place this repo along side with Apache24 folder (httpd-{version} folder)
 ```
 git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
