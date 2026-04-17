@@ -4,38 +4,23 @@
 Ap24-Service manager include start, stop, restart and stop Apache24 service.  
 Also provide custom port every time we start the service configured in main.py. This make the server will use different port every time it start. Will be more secure i think. :')  
 
-## Tools  
+## Tools 
+windows 
 python  
-bat / cmd  
+bat / cmd
 
 ## Guide  
-git clone / place this repo along side with Apache24 folder (httpd-{version} folder)
+git clone / place this repo alongside with Apache24 folder (httpd-{version} folder)
 ```
 git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
 
-Create **service_name.txt** and place your service name there like example below
+Create **service_name.txt** and place your service name at root path like example below
 
 ```txt
 Apacheservicename2466
-```
-
-Create and place your config file path in **conf_file.py** as example below:  
-```python
-import os
-
-def file_path():
-    cwd = os.getcwd()
-    path = f"{cwd.replace("\\","/")}/../Apache24"
-
-    return [
-        f"{path}/conf/httpd.conf",
-        f"{path}/conf/extra/httpd-ssl.conf",
-        f"{path}/conf/extra/httpd-vhosts.conf",
-        f"{path}/conf/extra/developments"
-    ]
 ```
 
 ## Info  

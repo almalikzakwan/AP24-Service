@@ -1,7 +1,21 @@
 import os 
 import subprocess
 import random
-from conf_file import file_path as cff
+
+def config_file():
+    """
+    file that need to change port
+    change with your folder instead (my example was conf/extra/developments folder) 
+    """
+    cwd = os.getcwd()
+    path = f"{cwd.replace("\\","/")}/../Apache24"
+
+    return [
+        f"{path}/conf/httpd.conf",
+        f"{path}/conf/extra/httpd-ssl.conf",
+        f"{path}/conf/extra/httpd-vhosts.conf", 
+        f"{path}/conf/extra/developments" # example of my developments folder, change your's instead.
+    ]
 
 def saved_port(file_path):
     """ get old configured port. """
@@ -137,8 +151,8 @@ for pt in pts:
 
     # file or directory that need to change custom port
     # this is my directory that need to change port in Apache24
-    # put your .conf here, if you add new project, just add their apache.conf here. or else create .conf into directory. 
-    conf_files = cff()
+    # my example for developments was conf/extra/developments, change your folder instead in config_file().
+    conf_files = config_file()
 
     for cf in conf_files:
         # check if path is file or directory
