@@ -15,7 +15,7 @@ sc query %service_name% >nul 2>&1
 
 IF ERRORLEVEL 1060 (
 	echo [ERROR] %service_name% service not hornies.
-	echo [WARNING] Please Add service bEfore you ask me to find it.
+	echo [WARNING] Please Add service to make it  hornies.
 )
 
 REM Query service status
