@@ -121,6 +121,22 @@ def init():
     else:
         os.makedirs("storage", exist_ok=True)
 
+def new_old_port(file_path):
+    #TODO: save port with list of object
+
+    # Validate file existence. else will get recent configured port.
+    if not os.path.isfile(file_path):
+        print(f"[ERROR] File '{file_path}' does not exists. Creating '{file_path}' with default port...")
+        old_port = "80" if pt == "default" else "443"
+        with open(file_path, "w") as file:
+            file.write(old_port)
+        print(f"[INFO] '{file_path}' file successfully create.")
+    else:
+        old_port = saved_port(file_path)
+
+    #TODO: save random port into multiple file using project name file name
+    new_port = random_port(file_path, 800 if pt == "default" else 4430, 9999 if pt == "default" else 65536, 1)
+
 
 # This is from my POV using Apache24, All developments config will be on conf/extra/developments folder, which will set by 
 # include <example.conf> in conf/extra/httpd-vhosts.conf file. We need to change every port listed in the vhost file.
@@ -131,23 +147,20 @@ def init():
 # in init, create storage folder if not exists
 init()
 # i will configure random default and ssl port using example below
+
+conf_files = config_file()
+
+for cf in conf_files:
+    fn = f"storage/recent.{pt}.port"
+
+
 pts = ["default","ssl"]
 for pt in pts:
     # make file path string
+    #TODO: save file with conf filename
     fp = f"storage/recent.{pt}.port"
 
-    # Validate file existence. else will get recent configured port.
-    if not os.path.isfile(fp):
-        print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
-        old_port = "80" if pt == "default" else "443"
-        with open(fp, "w") as file:
-            file.write(old_port)
-        print(f"[INFO] '{fp}' file successfully create.")
-    else:
-        old_port = saved_port(fp)
-    
-    # get random custom new port
-    new_port = random_port(fp, 800 if pt == "default" else 4430, 9999 if pt == "default" else 65536, 1)
+    new_old_port()
 
     # file or directory that need to change custom port
     # this is my directory that need to change port in Apache24
