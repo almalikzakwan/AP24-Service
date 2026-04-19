@@ -2,7 +2,7 @@
 
 ## Description  
 Ap24-Service manager include start, stop, restart and stop Apache24 service.  
-Also provide custom port every time we start the service configured in main.py. This make the server will use different port every time it start. Will be more secure i think. :')  
+Main function for this project is for making different port everytime Apache Service start hornies.
 
 ## Tools 
 windows 
