@@ -23,12 +23,12 @@ echo [INFO] Port forwarding deleted successfully.
 
 REM read value from recent.default.port file
 for /f "usebackq delims=" %%A in ("storage/recent.default.port") do (
-    netsh advfirewall firewall delete rule name="%service_name% Port %%A"
+    netsh advfirewall firewall delete rule name="Apache Custom Port %%A"
     echo [INFO] Deleted Rule Apache Port %%A
 )
 REM read value from recent.ssl.port file
 for /f "usebackq delims=" %%B in ("storage/recent.ssl.port") do (
-    netsh advfirewall firewall delete rule name="%service_name% Port %%B"   
+    netsh advfirewall firewall delete rule name="Apache Custom Port %%B"   
     echo [INFO] Deleted Rule Apache Port %%B
 )
 
