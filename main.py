@@ -1,6 +1,7 @@
 import os 
 import subprocess
 import random
+from pathlib import Path
 
 def config_file():
     """
@@ -121,22 +122,35 @@ def init():
     else:
         os.makedirs("storage", exist_ok=True)
 
-def new_old_port(file_path):
+def new_old_port(file_path, line):
     #TODO: save port with list of object
+
+    def old_port(file_path):
+        o = open(file_path, "r")
+        lines = o.readlines()
+        o.close()
+
+        with open(f"{file_path}", "r") as file:
+            content = file.read()
+            lines = file.readlines()
+            port = lines(line -1)
+
 
     # Validate file existence. else will get recent configured port.
     if not os.path.isfile(file_path):
         print(f"[ERROR] File '{file_path}' does not exists. Creating '{file_path}' with default port...")
-        old_port = "80" if pt == "default" else "443"
+        
         with open(file_path, "w") as file:
             file.write(old_port)
         print(f"[INFO] '{file_path}' file successfully create.")
     else:
         old_port = saved_port(file_path)
-
+    
     #TODO: save random port into multiple file using project name file name
-    new_port = random_port(file_path, 800 if pt == "default" else 4430, 9999 if pt == "default" else 65536, 1)
+    # def random_port(file_path, start, stop, step)
 
+    new_port = random_port(file_path, 8000, 65536, 1)
+    return new_port
 
 # This is from my POV using Apache24, All developments config will be on conf/extra/developments folder, which will set by 
 # include <example.conf> in conf/extra/httpd-vhosts.conf file. We need to change every port listed in the vhost file.
@@ -151,36 +165,49 @@ init()
 conf_files = config_file()
 
 for cf in conf_files:
-    fn = f"storage/recent.{pt}.port"
+    cp = cf.rsplit('/')[-1]
+    fn = f"storage/{cp}"
+    print(fn)
 
-
-pts = ["default","ssl"]
-for pt in pts:
-    # make file path string
-    #TODO: save file with conf filename
-    fp = f"storage/recent.{pt}.port"
-
-    new_old_port()
-
-    # file or directory that need to change custom port
-    # this is my directory that need to change port in Apache24
-    # my example for developments was conf/extra/developments, change your folder instead in config_file().
-    conf_files = config_file()
-
-    for cf in conf_files:
-        # check if path is file or directory
-        if not os.path.isfile(cf):
-            for fn in os.listdir(cf):
-                cfp = os.path.join(cf, fn)
-                if os.path.isdir(cfp):
-                    continue
-                replace_string_in_file(cfp, old_port, new_port)
+    with open(f"storage/{cp}","w") as f:
+        # print(check_conf)
+        # os.mkdir("developments")
+        if not os.path.isdir(fn):
+            print(check_conf)
         else:
-            replace_string_in_file(cf, old_port, new_port)
+            os.mkdir(fn)
+        
+    # new_old_port(fn)
 
-    # add firewall rile to allow custom port to be access
-    add_windows_firewall_rule(new_port)
-    #port forwarding default and ssl into new custom
-    port_forwarding(new_port, 80 if pt == "default" else 443)
+# =======================================
+
+# pts = ["default","ssl"]
+# for pt in pts:
+#     # make file path string
+#     #TODO: save file with conf filename
+#     fp = f"storage/recent.{pt}.port"
+    
+#     new_old_port()
+
+#     # file or directory that need to change custom port
+#     # this is my directory that need to change port in Apache24
+#     # my example for developments was conf/extra/developments, change your folder instead in config_file().
+#     conf_files = config_file()
+
+#     for cf in conf_files:
+#         # check if path is file or directory
+#         if not os.path.isfile(cf):
+#             for fn in os.listdir(cf):
+#                 cfp = os.path.join(cf, fn)
+#                 if os.path.isdir(cfp):
+#                     continue
+#                 replace_string_in_file(cfp, old_port, new_port)
+#         else:
+#             replace_string_in_file(cf, old_port, new_port)
+
+#     # add firewall rile to allow custom port to be access
+#     add_windows_firewall_rule(new_port)
+#     #port forwarding default and ssl into new custom
+#     port_forwarding(new_port, 80 if pt == "default" else 443)
 
 
