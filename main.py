@@ -170,8 +170,7 @@ for cf in conf_files:
     print(fn)
 
     with open(f"storage/{cp}","w") as f:
-        # print(check_conf)
-        # os.mkdir("developments")
+        os.mkdir("developments")
         if not os.path.isdir(fn):
             print(check_conf)
         else:
@@ -209,5 +208,4 @@ for cf in conf_files:
 #     add_windows_firewall_rule(new_port)
 #     #port forwarding default and ssl into new custom
 #     port_forwarding(new_port, 80 if pt == "default" else 443)
-
 
