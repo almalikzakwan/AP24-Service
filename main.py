@@ -121,7 +121,7 @@ def init():
         pass
     else:
         os.makedirs("storage", exist_ok=True)
-
+ 
 def new_old_port(file_path, line):
     #TODO: save port with list of object
 
@@ -134,7 +134,6 @@ def new_old_port(file_path, line):
             content = file.read()
             lines = file.readlines()
             port = lines(line -1)
-
 
     # Validate file existence. else will get recent configured port.
     if not os.path.isfile(file_path):
@@ -159,22 +158,42 @@ def new_old_port(file_path, line):
 # Example usage
 
 # in init, create storage folder if not exists
-init()
+# init()
 # i will configure random default and ssl port using example below
+
+#TODO: check developments as path not file
 
 conf_files = config_file()
 
 for cf in conf_files:
     cp = cf.rsplit('/')[-1]
-    fn = f"storage/{cp}"
-    print(fn)
+    fn = f"storage/{cp}"    
 
-    with open(f"storage/{cp}","w") as f:
-        os.mkdir("developments")
-        if not os.path.isdir(fn):
-            print(check_conf)
-        else:
-            os.mkdir(fn)
+    path = Path(fn)
+    print(path)
+    extension = path.suffix
+    
+    if extension == ".conf":
+        with open(fn,"w") as f:
+            #todo: read and write line with port
+            
+    else:
+        #todo: foreach conf and write custom port
+            
+            
+    # with open(f"{fn}","b") as f:
+    # print(fn)
+    # os.mkdir(f"{fn}")
+    
+    
+    # if not os.path.isfile():
+    #     print('hai')
+    #     if os.path.exists(f"{fn}"):
+    #         os.mkdir(f"{fn}")
+    #     else:
+    #         pass
+    # else:
+    #     pass
         
     # new_old_port(fn)
 
