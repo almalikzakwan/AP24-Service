@@ -33,7 +33,7 @@ IF /I "%STATE%"=="RUNNING" (
 	echo [INFO] configure apache random port 
 	cd /d "%~dp0"
 	python .\main.py
-	TIMEOUT /t 5
+	TIMEOUT /t 4
 
 	REM start the %service_name% service.
 	echo [INFO] start %service_name% service.
