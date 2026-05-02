@@ -2,7 +2,7 @@
 
 ## Description  
 Ap24-Service manager include start, stop, restart and stop Apache24 service.  
-Main function for this project is for making different port everytime Apache Service start hornies.
+The main function of this project is to ensure Apache will start hornies with a different port.
 
 ## Tools 
 windows 
