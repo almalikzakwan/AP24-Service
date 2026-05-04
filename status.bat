@@ -3,12 +3,11 @@
 REM cd into current directory
 cd /d %~dp0
 
-REM automatic get your current path here
-set "filepath=%CD%\service_name.txt"
+REM import config
+call app/config.bat 
 
-for /f "usebackq delims=" %%i in (%filepath%) do (
-    set "service_name=%%i"
-)
+REM cd into root path
+cd /d %~dp0
 
 REM read value from recent.default.port file
 for /f "usebackq delims=" %%A in ("storage/recent.default.port") do (
@@ -20,8 +19,12 @@ for /f "usebackq delims=" %%B in ("storage/recent.ssl.port") do (
     echo [INFO] %service_name% running in SSL port : %%B 
 )
 
-echo [INFO] Checking %service_name% status.. 
+echo [INFO] Checking %service_name% status..
 sc query %service_name%
+
+echo [INFO] Checking %database_name% status.. 
+sc query %database_name%
+
 echo [WARN] this program will exit after timeout !
-timeout /t 44
+timeout /t 48
 

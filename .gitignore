@@ -1,4 +1,4 @@
 storage/*
+config/*
 conf_file.py
 __pycache__/
-service_name.txt
