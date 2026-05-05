@@ -2,7 +2,7 @@
 
 ## Description  
 Ap24-Service manager include start, stop, restart and stop Apache24 service.  
-The main function of this project is to ensure Apache will start hornies with a different port.
+The main function of this project is to ensure Apache will start hornies with different port.
 
 ## Tools 
 windows 
@@ -16,11 +16,16 @@ git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
+Create this 2 files and place your service name in config folder like example below
 
-Create **service_name.txt** and place your service name at root path like example below
-
+**service.conf**
 ```txt
 Apacheservicename2466
+```
+
+**database.conf**
+```txt
+MySQLServiceName123
 ```
 
 ## Info  
