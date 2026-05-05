@@ -1,4 +1,5 @@
 @echo off
+
 REM cd into current directory
 cd /d %~dp0
 

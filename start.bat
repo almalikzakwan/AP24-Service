@@ -28,7 +28,7 @@ IF /I "%STATE%"=="RUNNING" (
 	REM configure apache random port
 	echo [INFO] configure apache random port 
 	cd /d "%~dp0"
-	python .\main.py
+	python .\resources\main.py
 	TIMEOUT /t 4
 
 	REM start the %service_name% service.

@@ -6,6 +6,11 @@ cd /d %~dp0
 REM import config
 call app/config.bat 
 
+REM import clean firewall rule
+call clean_rule.bat
+REM import clean port forwarding function
+call clean_port_forwarding.bat
+
 REM stop service 
 echo [INFO] Restarting bitch %service_name% service.....
 net stop %service_name%
@@ -13,7 +18,7 @@ net stop %service_name%
 REM configure random port
 echo [INFO] configure apache random port 
 cd /d "%~dp0"
-python .\main.py
+python .\resources\main.py
 TIMEOUT /t 4
 
 REM start service

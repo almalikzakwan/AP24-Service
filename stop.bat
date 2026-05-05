@@ -8,26 +8,13 @@ call app/config.bat
 
 echo "bitch %service_name% stopping.........."
 REM configure apache random port
-cd /d "%~dp0"
+
+REM import clean firewall rule
+call clean_rule.bat
+REM import clean port forwarfing function
+call clean_port_forwarding.bat
 
 net stop %service_name%
-
-netsh interface portproxy delete v4tov4 listenport=80 listenaddress=0.0.0.0
-netsh interface portproxy delete v4tov4 listenport=443 listenaddress=0.0.0.0
-
-echo [INFO] Port forwarding deleted successfully.
-
-REM read value from recent.default.port file
-for /f "usebackq delims=" %%A in ("storage/recent.default.port") do (
-    netsh advfirewall firewall delete rule name="Apache Custom Port %%A"
-    echo [INFO] Deleted Rule Apache Port %%A
-)
-REM read value from recent.ssl.port file
-for /f "usebackq delims=" %%B in ("storage/recent.ssl.port") do (
-    netsh advfirewall firewall delete rule name="Apache Custom Port %%B"   
-    echo [INFO] Deleted Rule Apache Port %%B
-)
-
 echo "yeah dude, %service_name% cumming......." 
 
 REM stop database
