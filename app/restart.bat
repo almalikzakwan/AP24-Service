@@ -4,7 +4,7 @@ REM cd into current directory
 cd /d %~dp0
 
 REM import config
-call app/config.bat 
+call config.bat 
 
 REM import clean firewall rule
 call clean_rule.bat
@@ -18,7 +18,7 @@ net stop %service_name%
 REM configure random port
 echo [INFO] configure apache random port 
 cd /d "%~dp0"
-python .\resources\main.py
+python .\..\resources\main.py
 TIMEOUT /t 4
 
 REM start service

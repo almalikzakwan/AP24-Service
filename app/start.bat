@@ -4,7 +4,7 @@ REM cd into current directory
 cd /d %~dp0
 
 REM import config
-call app/config.bat 
+call config.bat 
 
 REM Check if service exists/not 
 sc query %service_name% >nul 2>&1
@@ -28,7 +28,7 @@ IF /I "%STATE%"=="RUNNING" (
 	REM configure apache random port
 	echo [INFO] configure apache random port 
 	cd /d "%~dp0"
-	python .\resources\main.py
+	python .\..\resources\main.py
 	TIMEOUT /t 4
 
 	REM start the %service_name% service.

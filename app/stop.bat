@@ -4,7 +4,7 @@ REM cd into current directory
 cd /d %~dp0
 
 REM import config
-call app/config.bat
+call config.bat
 
 echo "bitch %service_name% stopping.........."
 REM configure apache random port

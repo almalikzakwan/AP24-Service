@@ -8,7 +8,7 @@ def config_file():
     change with your folder instead (my example was conf/extra/developments folder) 
     """
     cwd = os.getcwd()
-    path = f"{cwd.replace("\\","/")}/../Apache24"
+    path = f"{cwd.replace("\\","/")}/../../Apache24"
 
     return [
         f"{path}/conf/httpd.conf",
@@ -134,7 +134,7 @@ init()
 pts = ["default","ssl"]
 for pt in pts:
     # make file path string
-    fp = f"storage/recent.{pt}.port"
+    fp = f"../storage/recent.{pt}.port"
 
     # Validate file existence. else will get recent configured port.
     if not os.path.isfile(fp):
