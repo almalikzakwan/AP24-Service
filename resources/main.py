@@ -9,7 +9,7 @@ def config_file():
     change with your folder instead (my example was conf/extra/developments folder) 
     """
     cwd = os.getcwd()
-    path = f"{cwd.replace("\\","/")}/../Apache24"
+    path = f"{cwd.replace("\\","/")}/../../Apache24"
 
     return [
         f"{path}/conf/httpd.conf",
@@ -112,119 +112,52 @@ def port_forwarding(port, listenport):
     except Exception as e:
         print(f"An unexcepted error occured: {e}")
 
-def init():
-    """ 
-    create storage folder and init file with 
-    default value port 80 and 443 if not existed
-    """
-    if os.path.isdir("storage"):
-        pass
-    else:
-        os.makedirs("storage", exist_ok=True)
- 
-def new_old_port(file_path, line):
-    #TODO: save port with list of object
-
-    def old_port(file_path):
-        o = open(file_path, "r")
-        lines = o.readlines()
-        o.close()
-
-        with open(f"{file_path}", "r") as file:
-            content = file.read()
-            lines = file.readlines()
-            port = lines(line -1)
-
-    # Validate file existence. else will get recent configured port.
-    if not os.path.isfile(file_path):
-        print(f"[ERROR] File '{file_path}' does not exists. Creating '{file_path}' with default port...")
-        
-        with open(file_path, "w") as file:
-            file.write(old_port)
-        print(f"[INFO] '{file_path}' file successfully create.")
-    else:
-        old_port = saved_port(file_path)
-    
-    #TODO: save random port into multiple file using project name file name
-    # def random_port(file_path, start, stop, step)
-
-    new_port = random_port(file_path, 8000, 65536, 1)
-    return new_port
-
 # This is from my POV using Apache24, All developments config will be on conf/extra/developments folder, which will set by 
 # include <example.conf> in conf/extra/httpd-vhosts.conf file. We need to change every port listed in the vhost file.
 # in my perpective in learning Apache24 , we also need to change to custom used port in httpd.conf and httpd-ssl.conf
 #
 # Example usage
 
-# in init, create storage folder if not exists
-# init()
-# i will configure random default and ssl port using example below
+# i will configure random default and ssl port using example below in init() function.
+def init():
+    pts = ["default","ssl"]
+    for pt in pts:
+        # make file path string
+        fp = f"../storage/recent.{pt}.port"
 
-#TODO: check developments as path not file
-
-conf_files = config_file()
-
-for cf in conf_files:
-    cp = cf.rsplit('/')[-1]
-    fn = f"storage/{cp}"    
-
-    path = Path(fn)
-    print(path)
-    extension = path.suffix
-    
-    if extension == ".conf":
-        with open(fn,"w") as f:
-            #todo: read and write line with port
-            
-    else:
-        #todo: foreach conf and write custom port
-            
-            
-    # with open(f"{fn}","b") as f:
-    # print(fn)
-    # os.mkdir(f"{fn}")
-    
-    
-    # if not os.path.isfile():
-    #     print('hai')
-    #     if os.path.exists(f"{fn}"):
-    #         os.mkdir(f"{fn}")
-    #     else:
-    #         pass
-    # else:
-    #     pass
+        # Validate file existence. else will get recent configured port.
+        if not os.path.isfile(fp):
+            print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
+            old_port = "80" if pt == "default" else "443"
+            with open(fp, "w") as file:
+                file.write(old_port)
+            print(f"[INFO] '{fp}' file successfully create.")
+        else:
+            old_port = saved_port(fp)
         
-    # new_old_port(fn)
+        # get random custom new port
+        new_port = random_port(fp, 800 if pt == "default" else 4430, 9999 if pt == "default" else 65536, 1)
 
-# =======================================
+        # file or directory that need to change custom port
+        # this is my directory that need to change port in Apache24
+        # my example for developments was conf/extra/developments, change your folder instead in config_file().
+        conf_files = config_file()
 
-# pts = ["default","ssl"]
-# for pt in pts:
-#     # make file path string
-#     #TODO: save file with conf filename
-#     fp = f"storage/recent.{pt}.port"
-    
-#     new_old_port()
+        for cf in conf_files:
+            # check if path is file or directory
+            if not os.path.isfile(cf):
+                for fn in os.listdir(cf):
+                    cfp = os.path.join(cf, fn)
+                    if os.path.isdir(cfp):
+                        continue
+                    replace_string_in_file(cfp, old_port, new_port)
+            else:
+                replace_string_in_file(cf, old_port, new_port)
 
-#     # file or directory that need to change custom port
-#     # this is my directory that need to change port in Apache24
-#     # my example for developments was conf/extra/developments, change your folder instead in config_file().
-#     conf_files = config_file()
+        # add firewall rile to allow custom port to be access
+        add_windows_firewall_rule(new_port)
+        #port forwarding default and ssl into new custom
+        port_forwarding(new_port, 80 if pt == "default" else 443)
 
-#     for cf in conf_files:
-#         # check if path is file or directory
-#         if not os.path.isfile(cf):
-#             for fn in os.listdir(cf):
-#                 cfp = os.path.join(cf, fn)
-#                 if os.path.isdir(cfp):
-#                     continue
-#                 replace_string_in_file(cfp, old_port, new_port)
-#         else:
-#             replace_string_in_file(cf, old_port, new_port)
-
-#     # add firewall rile to allow custom port to be access
-#     add_windows_firewall_rule(new_port)
-#     #port forwarding default and ssl into new custom
-#     port_forwarding(new_port, 80 if pt == "default" else 443)
-
+# initialize init() def     
+init()
