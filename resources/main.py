@@ -1,30 +1,9 @@
 import os 
 import subprocess
 import random
-from pathlib import Path
-
-def config_file():
-    """
-    file that need to change port
-    change with your folder instead (my example was conf/extra/developments folder) 
-    """
-    cwd = os.getcwd()
-    path = f"{cwd.replace("\\","/")}/../../Apache24"
-
-    return [
-        f"{path}/conf/httpd.conf",
-        f"{path}/conf/extra/httpd-ssl.conf",
-        f"{path}/conf/extra/httpd-vhosts.conf", 
-        f"{path}/conf/extra/developments" # example of my developments folder, change your's instead.
-    ]
-
-def saved_port(file_path):
-    """ get old configured port. """
-    ordp = open(file_path,"r")
-    port = ordp.read()
-    ordp.close()
-
-    return port
+from functions.config import config
+from functions.file import files as f
+from functions.php import php
 
 def random_port(file_path, start, stop, step):
     """ get new default random port, and save into storage file."""
@@ -125,15 +104,17 @@ def init():
         # make file path string
         fp = f"../storage/recent.{pt}.port"
 
+        # init file class
+        file = f(fp)
+
         # Validate file existence. else will get recent configured port.
         if not os.path.isfile(fp):
             print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
             old_port = "80" if pt == "default" else "443"
-            with open(fp, "w") as file:
-                file.write(old_port)
+            file.write(old_port)
             print(f"[INFO] '{fp}' file successfully create.")
         else:
-            old_port = saved_port(fp)
+            old_port = file.read()
         
         # get random custom new port
         new_port = random_port(fp, 800 if pt == "default" else 4430, 9999 if pt == "default" else 65536, 1)
@@ -141,7 +122,7 @@ def init():
         # file or directory that need to change custom port
         # this is my directory that need to change port in Apache24
         # my example for developments was conf/extra/developments, change your folder instead in config_file().
-        conf_files = config_file()
+        conf_files = config.path()
 
         for cf in conf_files:
             # check if path is file or directory
@@ -158,6 +139,12 @@ def init():
         add_windows_firewall_rule(new_port)
         #port forwarding default and ssl into new custom
         port_forwarding(new_port, 80 if pt == "default" else 443)
+
+    #configure php
+    pw = php()
+    pw.write()
+
+
 
 # initialize init() def     
 init()

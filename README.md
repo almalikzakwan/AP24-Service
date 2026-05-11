@@ -28,6 +28,13 @@ Apacheservicename2466
 MySQLServiceName123
 ```
 
+Using this project, you must include conf/php.conf in Apache24 folder
+
+and put your php file path in config/php.conf file path like example below
+```txt
+Z:/PHP/php-8.3.30-Win32-vs16-x64/
+```
+
 ## Info  
 .bat file must be running in administrator mode.
 This program built for learning and sharing only.
