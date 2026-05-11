@@ -28,7 +28,7 @@ Apacheservicename2466
 MySQLServiceName123
 ```
 
-Using this project, you must include conf/php.conf in Apache24 folder
+Using this project, you must include **conf/php.conf** in Apache24 folder
 
 and put your php file path in config/php.conf file path like example below
 ```txt
