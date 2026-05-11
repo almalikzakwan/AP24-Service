@@ -16,7 +16,7 @@ git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
-Create this 2 files and place your service name in config folder like example below
+Create this 4 config files and place your file name in the folder like example below,
 
 **service.conf**
 ```txt
@@ -28,11 +28,14 @@ Apacheservicename2466
 MySQLServiceName123
 ```
 
-Using this project, you must include **conf/php.conf** in Apache24 folder
-
-and put your php file path in config/php.conf file path like example below
+**php.conf**
 ```txt
-Z:/PHP/php-8.3.30-Win32-vs16-x64/
+Z:/PHP/php-8.3.30-Win32-vs16-x64
+```
+
+**development.conf**
+```txt
+Z:/WebServer/Apache/httpd-2.4.54-win64-VC15/Apache24/conf/extra/developments
 ```
 
 ## Info  

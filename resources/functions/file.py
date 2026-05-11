@@ -8,9 +8,9 @@ class files:
     def init(self, path: str):
         self.path = path
 
-    def read(self, mode = "r"):
+    def read(self, mode:str = "r"):
         """ read a file. """
-        file = open(self.path, self.mode)
+        file = open(self.path, mode)
         value = file.read()
         file.close()
         self.close(file)
@@ -22,6 +22,8 @@ class files:
         file = open(self.path, mode)
         file.write(string)
         self.close(file)
+
+        return True
 
     def close(file):
         """ close file after execution """
