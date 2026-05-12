@@ -158,5 +158,7 @@ def init():
         #port forwarding default and ssl into new custom
         port_forwarding(new_port, 80 if pt == "default" else 443)
 
-# initialize init() def     
-init()
+if __name__ == "__main__":
+    print("Executing script................")
+    # initialize init() def     
+    init()
