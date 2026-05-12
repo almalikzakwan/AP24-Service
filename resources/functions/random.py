@@ -1,13 +1,15 @@
 import random
 
-class random:
+class randoms:
     """ get random number range """
-    def range(file_path, start, stop, step):
-        """ get new default random port, and save into storage file."""
-        random_port = random.randrange(start, stop, step)
-
-        # save random default port into file.
-        rdp = open(file_path,"w")
-        rdp.write(str(random_port))
-
-        return random_port
+    def randint(start:int, stop:int) -> int:
+        """ return a random number from start-end number. """
+        return random.randint(start, stop)
+    
+    def choice(seq: list) -> int:
+        """ return a choices from an sequence. """
+        return random.choice(seq)
+    
+    def choices(seq:list, set:int) -> list:
+        """ return k set of choices from the sequence. """
+        return random.choices(seq, k=set)
