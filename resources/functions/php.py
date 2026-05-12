@@ -3,25 +3,22 @@ from functions.file import files as f
 
 class php:
     """ Create php configuration in Apache24 folder """
-    def write(self) -> bool:
+    def write() -> bool:
         root = r()
-        path = f"{root.path()}/conf/php.conf"
-        file = f(path)
-        string = self.string()
-        file.write(string)
+        path = f"{root.ApachePath()}/conf/php.conf"
+        APachefile = f(path)
 
-        return True
-
-    """ Create php config string base on php path """
-    def string(self) -> str:
-        fp = f"../../config/php.conf"
+        fp = f"{root.AP24Path()}/config/php.conf"
         file = f(fp)
         php = file.read()
-        
-        return f'''
+
+        string = f'''
 LoadFile "{php}/php8ts.dll"
 LoadModule php_module "{php}/php8apache2_4.dll"
 AddType application/x-httpd-php .php
 PHPIniDir "{php}/"
 '''
+        APachefile.write(string)
+
+        return True
 
