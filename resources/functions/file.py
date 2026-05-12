@@ -5,7 +5,8 @@ class files:
     read(path: str)
     write(path: str)
     """
-    def init(self, path: str):
+    def __init__(self, path: str) -> str:
+        """ init default path value """
         self.path = path
 
     def read(self, mode:str = "r"):
@@ -17,7 +18,7 @@ class files:
 
         return value
     
-    def write(self, string: str, mode:str ="w"):
+    def write(self, string: str, mode:str ="w") -> bool:
         """ write into file. """
         file = open(self.path, mode)
         file.write(string)
@@ -25,8 +26,9 @@ class files:
 
         return True
 
-    def close(file):
+    def close(self, file) -> bool:
         """ close file after execution """
         file.close()
+        return True
 
 
