@@ -5,13 +5,15 @@ from functions.php import php
 from functions.random import randoms
 from functions.firewall import firewall
 from functions.replace import replace as r
+from functions.root import root
 
 class init:
     def init():
         pts = ["default","ssl"]
         for pt in pts:
             # make file path string
-            fp = f"../storage/recent.{pt}.port"
+            rt = root()
+            fp = f"{rt.AP24Path()}/storage/recent.{pt}.port"
 
             # init file class
             file = f(fp)
@@ -25,11 +27,12 @@ class init:
             else:
                 op = file.read()
 
+            
             # get a random number
             np = randoms.randint(4430, 65536)
             # save random port into file
             file.write(str(np))
-
+            
             # file or directory that need to change custom port
             # this is my directory that need to change port in Apache24
             # my example for developments was conf/extra/developments, change your path instead in config/development.conf.
@@ -42,9 +45,9 @@ class init:
                         cfp = os.path.join(cf, fn)
                         if os.path.isdir(cfp):
                             continue
-                        r(cfp, op, np)
+                        r.string(cfp, op, np)
                 else:
-                    r(cf, op, np)
+                    r.string(cf, op, np)
 
             # add firewall rile to allow custom port to be access
             firewall.addInbound(np)
