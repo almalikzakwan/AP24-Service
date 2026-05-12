@@ -17,28 +17,37 @@ cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
 
-Create this 4 config files and place your file name in the folder like example below,
+Create this 5 config files and place your file name in the folder like example below,
 
-**_service.conf_**
+**_AP24-Service/config/service.conf_**
 ```txt
 Apacheservicename2466
 ```
 
-**_database.conf_**
+**_AP24-Service/config/database.conf_**
 ```txt
 MySQLServiceName123
 ```
 
-**_php.conf_**
+**_AP24-Service/config/php.conf_**
 ```txt
 Z:/PHP/php-8.3.30-Win32-vs16-x64
 ```
 
-**_development.conf_**
+**_AP24-Service/config/development.conf_**
 ```txt
 # developments folder from Apache24 root path
 Apache24/conf/extra/developments
 ```
+
+**_Apache24/config/php.conf_**
+```txt
+LoadFile "Z:/PHP/php-8.3.30-Win32-vs16-x64/php8ts.dll"
+LoadModule php_module "Z:/PHP/php-8.3.30-Win32-vs16-x64/php8apache2_4.dll"
+AddType application/x-httpd-php .php
+PHPIniDir "Z:/PHP/php-8.3.30-Win32-vs16-x64/"
+```
+and add _Include conf/php.conf_ in bottom file httpd.conf in your Apache24 folder.
 
 example available in config folder.
 
