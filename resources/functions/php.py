@@ -1,5 +1,5 @@
 from functions.root import root as r
-from functions.file import file as f
+from functions.file import files as f
 
 class php:
     """ Create php configuration in Apache24 folder """
