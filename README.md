@@ -16,27 +16,31 @@ git clone https://<username>:<token>@github.com/almalikzakwan/AP24-Service.git
 cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
+
 Create this 4 config files and place your file name in the folder like example below,
 
-**service.conf**
+**_service.conf_**
 ```txt
 Apacheservicename2466
 ```
 
-**database.conf**
+**_database.conf_**
 ```txt
 MySQLServiceName123
 ```
 
-**php.conf**
+**_php.conf_**
 ```txt
 Z:/PHP/php-8.3.30-Win32-vs16-x64
 ```
 
-**development.conf**
+**_development.conf_**
 ```txt
-Z:/WebServer/Apache/httpd-2.4.54-win64-VC15/Apache24/conf/extra/developments
+# developments folder from Apache24 root path
+Apache24/conf/extra/developments
 ```
+
+example available in config folder.
 
 ## Info  
 .bat file must be running in administrator mode.
