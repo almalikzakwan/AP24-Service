@@ -19,7 +19,7 @@ class replace:
             if upc != content:
                 file.write(upc)
             else:
-                print(f"No '{os}' found in {fn}.")
+                print(f"No '{ols}' found in {fn}.")
 
             print(f"[INFO] Replaced all '{ols}' with '{nes}' in {fn}")
 
