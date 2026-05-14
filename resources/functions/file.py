@@ -25,6 +25,11 @@ class files:
         self.close(file)
 
         return True
+    
+    def readlines(self, mode:str ="r") -> list:
+        """ read all lines in file """
+        file = open(self.path, mode)
+        return file.readlines()
 
     def close(self, file) -> bool:
         """ close file after execution """
