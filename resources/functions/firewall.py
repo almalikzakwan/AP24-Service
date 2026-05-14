@@ -29,7 +29,7 @@ class firewall:
             print(f"An unexpected error occured: {e}")
             return False
 
-    def portForwarding(port, listenport):
+    def portForwarding(port: str, listenport:str) -> bool:
         """
         port forwarding for default and ssl port
         forwarding 80 and 443 into custom port.
