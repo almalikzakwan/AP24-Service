@@ -11,13 +11,15 @@ cd /d %~dp0
 
 REM read value from recent.default.port file
 for /f "usebackq delims=" %%A in ("../storage/recent.default.port") do (
-    echo [INFO] %service_name% running in DEFAULT port : %%A    
+    set "defaultport=%%~nA"
 )
+echo [INFO] %service_name% running in DEFAULT port : %defaultport%
 
 REM read value from recent.ssl.port file
 for /f "usebackq delims=" %%B in ("../storage/recent.ssl.port") do (
-    echo [INFO] %service_name% running in SSL port : %%B 
+    set "sslport=%%~nB"
 )
+echo [INFO] %service_name% running in SSL port : %sslport%
 
 echo [INFO] Checking %service_name% status..
 sc query %service_name%

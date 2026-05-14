@@ -19,25 +19,39 @@ class kickoff:
                 # init file class
                 file = f(fp)
 
-                # Validate file existence. else will get recent configured port.
-                if not os.path.isfile(fp):
-                    print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
-                    op = "80" if pt == "default" else "443"
-                    file.write(op)
-                    print(f"[INFO] '{fp}' file successfully create.")
-                else:
-                    op = file.read()
+            #init firewall instance
+            fwll = firewall()
 
-                
-                # get a random number
-                np = randoms.randint(4430, 65536)
-                # save random port into file
-                file.write(str(np))
-                
-                # file or directory that need to change custom port
-                # this is my directory that need to change port in Apache24
-                # my example for developments was conf/extra/developments, change your path instead in config/development.conf.
-                confs = config.path()
+            # Validate file existence. else will get recent configured port.
+            if not os.path.isfile(fp):
+                print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
+                op = "80" if pt == "default" else "443"
+                file.write(op)
+                print(f"[INFO] '{fp}' file successfully create.")
+            else:
+                oldports = file.readlines()
+                op = oldports.pop()
+
+                i = 0
+                for oldport in reversed(oldports):
+                    i += 1
+                    if i == len(oldports):
+                        continue
+                    elif i > 2:
+                        break
+                    po = oldport.replace('\n','')
+                    fwll.delInbound(po)
+
+            
+            # get a random number
+            np = randoms.randint(4430, 65536)
+            # save random port into file
+            file.write(f"\n{str(np)}")
+            
+            # file or directory that need to change custom port
+            # this is my directory that need to change port in Apache24
+            # my example for developments was conf/extra/developments, change your path instead in config/development.conf.
+            confs = config.path()
 
                 for cf in confs:
                     # check if path is file or directory
@@ -50,14 +64,10 @@ class kickoff:
                     else:
                         r.string(cf, op, np)
 
-                # add firewall rile to allow custom port to be access
-                firewall.addInbound(np)
-                # port forwarding default and ssl into new custom
-                firewall.portForwarding(np, 80 if pt == "default" else 443)
-            except:
-                if 'file' in locals and 'op' in locals:
-                    file.write(op)
-                print("An unexpected error oocur.")
+            # add firewall rile to allow custom port to be access
+            fwll.addInbound(port = np)
+            # port forwarding default and ssl into new custom
+            fwll.portForwarding(np, 80 if pt == "default" else 443)
 
         #configure php
         php.write()
