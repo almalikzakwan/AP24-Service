@@ -13,13 +13,13 @@ class php:
             file = f(fp)
             php = file.read()
 
-        string = f'''
-LoadFile "{php}/php8ts.dll"
-LoadModule php_module "{php}/php8apache2_4.dll"
-AddType application/x-httpd-php .php
-PHPIniDir "{php}/"
-'''
-        APachefile.write(string = string, mode="w")
+            string = f'''
+    LoadFile "{php}/php8ts.dll"
+    LoadModule php_module "{php}/php8apache2_4.dll"
+    AddType application/x-httpd-php .php
+    PHPIniDir "{php}/"
+    '''
+            APachefile.write(string = string, mode="w")
 
             return True
         
