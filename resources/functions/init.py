@@ -7,7 +7,7 @@ from functions.firewall import firewall
 from functions.replace import replace as r
 from functions.root import root
 
-class init:
+class kickoff:
     def init():
         pts = ["default","ssl"]
         for pt in pts:
