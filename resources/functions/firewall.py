@@ -1,7 +1,10 @@
 import subprocess
 
 class firewall:
-    def addInbound(port, action="allow", protocol="TCP", direction="in") -> bool:
+    """
+    Class to use network shell windows 11
+    """
+    def addInbound(self, port:str, action:str="allow", protocol:str="TCP", direction:str="in") -> bool:
         """
         Adds an inbound firewall rule to the Windows Firewall.
         If not add, windows will not allow custom port to be access.
@@ -18,18 +21,9 @@ class firewall:
             f"protocol={protocol}",
             f"localport={port}"
         ]
+        self.run(command, port)
 
-        try:
-            subprocess.run(command, check=True, capture_output=True, text=True)
-            return True
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to add rule Apache Custom Port {port}")
-            return False
-        except Exception as e:
-            print(f"An unexpected error occured: {e}")
-            return False
-
-    def portForwarding(port, listenport):
+    def portForwarding(self, port:str, listenport:str) -> bool:
         """
         port forwarding for default and ssl port
         forwarding 80 and 443 into custom port.
@@ -46,10 +40,30 @@ class firewall:
             f"connectport={port}",
             "connectaddress=127.0.0.1"
         ]
+        self.run(command, port)
+        
+    def delInbound(self, port:str) -> bool:
+        """ 
+        delete inbound firewall rules. only took 5 latest port to remove.
+        """
+        command = [
+            "netsh",
+            "advfirewall",
+            "firewall",
+            "delete",
+            "rule",
+            f"name=Apache Apache Custom Port {port}"
+        ]
 
+        self.run(command, port)
+        
+    def run(self, command:str = [], port:int = 80) -> bool:
         try:
             subprocess.run(command, check=True, capture_output=True, text=True)
             return True
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to delete rule Apache Custom Port {port}")
+            return False
         except Exception as e:
-            print(f"An unexcepted error occured: {e}")
+            print(f"An unexpected error occured: {e}")
             return False
