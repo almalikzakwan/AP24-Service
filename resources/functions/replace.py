@@ -17,7 +17,7 @@ class replace:
             fn = os.path.basename(fp)
 
             if upc != content:
-                file.write(upc)
+                file.write(string = upc, mode="w")
             else:
                 print(f"No '{ols}' found in {fn}.")
 
