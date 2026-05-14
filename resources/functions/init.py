@@ -25,7 +25,18 @@ class init:
                 file.write(op)
                 print(f"[INFO] '{fp}' file successfully create.")
             else:
-                op = file.read()
+                oldports = file.readlines()
+                op = oldports.pop()
+
+                i = 0
+                for oldport in reversed(oldports):
+                    i += 1
+                    if i == len(oldports):
+                        continue
+                    elif i > 2:
+                        break
+                    po = oldport.replace('\n','')
+                    firewall.delInbound(po)
 
             
             # get a random number
