@@ -37,7 +37,7 @@ Z:/PHP/php-8.3.30-Win32-vs16-x64
 **_AP24-Service/config/development.conf_**
 ```txt
 # developments folder from Apache24 root path
-Apache24/conf/extra/developments
+conf/extra/developments
 ```
 
 **_Apache24/config/php.conf_**
