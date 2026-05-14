@@ -9,6 +9,3 @@ from functions.init import init as main
 
 # initialization of script    
 main.init()
-
-
-
