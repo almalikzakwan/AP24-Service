@@ -4,6 +4,9 @@ class firewall:
     """
     Class to use network shell windows 11
     """
+    def __init__(self):
+        pass
+    
     def addInbound(self, port:str, action:str="allow", protocol:str="TCP", direction:str="in") -> bool:
         """
         Adds an inbound firewall rule to the Windows Firewall.
