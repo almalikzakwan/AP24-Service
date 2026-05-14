@@ -18,6 +18,9 @@ class init:
             # init file class
             file = f(fp)
 
+            #init firewall instance
+            fwll = firewall()
+
             # Validate file existence. else will get recent configured port.
             if not os.path.isfile(fp):
                 print(f"[ERROR] File '{fp}' does not exists. Creating '{fp}' with default port...")
@@ -36,13 +39,13 @@ class init:
                     elif i > 2:
                         break
                     po = oldport.replace('\n','')
-                    firewall.delInbound(po)
+                    fwll.delInbound(po)
 
             
             # get a random number
             np = randoms.randint(4430, 65536)
             # save random port into file
-            file.write(str(np))
+            file.write(f"\n{str(np)}")
             
             # file or directory that need to change custom port
             # this is my directory that need to change port in Apache24
@@ -61,9 +64,9 @@ class init:
                     r.string(cf, op, np)
 
             # add firewall rile to allow custom port to be access
-            firewall.addInbound(np)
+            fwll.addInbound(port = np)
             # port forwarding default and ssl into new custom
-            firewall.portForwarding(np, 80 if pt == "default" else 443)
+            fwll.portForwarding(np, 80 if pt == "default" else 443)
 
         #configure php
         php.write()
