@@ -18,7 +18,7 @@ LoadModule php_module "{php}/php8apache2_4.dll"
 AddType application/x-httpd-php .php
 PHPIniDir "{php}/"
 '''
-        APachefile.write(string)
+        APachefile.write(string = string, mode="w")
 
         return True
 
