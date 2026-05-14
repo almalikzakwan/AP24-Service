@@ -5,7 +5,7 @@
 # Example usage
 
 # i will configure random default and ssl port using example below in init() function.
-from functions.init import init as main
+from functions.init import kickoff as main
 
 # initialization of script    
-main.init()
+main.kickoff()

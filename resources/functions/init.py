@@ -7,16 +7,17 @@ from functions.firewall import firewall
 from functions.replace import replace as r
 from functions.root import root
 
-class init:
+class kickoff:
     def init():
         pts = ["default","ssl"]
         for pt in pts:
-            # make file path string
-            rt = root()
-            fp = f"{rt.AP24Path()}/storage/recent.{pt}.port"
+            try:
+                # make file path string
+                rt = root()
+                fp = f"{rt.AP24Path()}/storage/recent.{pt}.port"
 
-            # init file class
-            file = f(fp)
+                # init file class
+                file = f(fp)
 
             #init firewall instance
             fwll = firewall()
@@ -52,16 +53,16 @@ class init:
             # my example for developments was conf/extra/developments, change your path instead in config/development.conf.
             confs = config.path()
 
-            for cf in confs:
-                # check if path is file or directory
-                if not os.path.isfile(cf):
-                    for fn in os.listdir(cf):
-                        cfp = os.path.join(cf, fn)
-                        if os.path.isdir(cfp):
-                            continue
-                        r.string(cfp, op, np)
-                else:
-                    r.string(cf, op, np)
+                for cf in confs:
+                    # check if path is file or directory
+                    if not os.path.isfile(cf):
+                        for fn in os.listdir(cf):
+                            cfp = os.path.join(cf, fn)
+                            if os.path.isdir(cfp):
+                                continue
+                            r.string(cfp, op, np)
+                    else:
+                        r.string(cf, op, np)
 
             # add firewall rile to allow custom port to be access
             fwll.addInbound(port = np)
