@@ -33,6 +33,7 @@ class firewall:
         """
         port forwarding for default and ssl port
         forwarding 80 and 443 into custom port.
+        port = {new port}, listenport = 80/443
         """
         command = [
             "netsh",
