@@ -1,5 +1,5 @@
 import os
-import re
+import fnmatch, re
 from functions.config import config
 from functions.file import files as f
 from functions.php import php
@@ -12,47 +12,29 @@ import ast
 class kickoff:
     def init():
         conf = config()
-
-        cfpp = conf.ports()
+        confs = conf.developments()
+        cfpp = conf.path('config/ports.conf')
         portsf = f(cfpp)
         ports = portsf.readlines()
         conf_ports = {}
-        for port in ports:
-            ctext = re.sub(r"\{.*?\}|\s+","",port)
-            cport = re.search(r'\{(.*?)\}', port)
-            iprts = {}
-            for item in cport.group(1).strip().split(","):
-                key, value = item.strip().split(":")
-                iprts[key] = value
-
-            conf_ports[ctext] = iprts
-        
-        confs = conf.developments()
-        #todo:  oldport, read, replace and write
-        rt = root()
-        for i, cf in enumerate(confs):
-            # developements folder
-            if not os.path.isfile(cf):
-                for fn in os.listdir(cf):
-                    cfp = os.path.join(cf, fn)
-                    if os.path.isdir(cfp):
-                        continue
-                    fi = f(cfp)
-                    value = fi.read()
-
-                    # print(value)
-            else:
-                fn = os.path.basename(cf)
-                oprts = conf_ports[fn]
-                # oprts = {'80': 'default', '443': 'ssl'}
-                for oprt, type in oprts.items():
-                    nprt = randoms.randint(4430, 65535)
-                    ports[i] = ports[i].replace(str(oprt),str(nprt))
-                    print(ports[i])
-                    reps = portsf.writelines(ports)
-                    if reps != True:
-                        print(f"[INFO] Port cannot being change. An Error Occured. File: {cfpp}, Line: {i}")
-                #todo: save recent port into storage/recent.[default/ssl].port
-                #todo: multiple port forwarding, firewall inbound rule. 
+        for i, port in enumerate(ports):
+            filename = re.sub(r"\{.*?\}|\s+","",port)
+            cpath = [item for item in confs if filename in item][0]
+            value = re.search(r'\{(.*?)\}', port)
+            for item in value.group(1).strip().split(","):
+                key, type = item.strip().split(":")
+                #todo: port, type, path , read and write into developement config
+                #todo: multiple port forwarding, firewall inbound rule.
+                nprt = randoms.randint(4430, 65535)
+                ports[i] = ports[i].replace(str(key),str(nprt))
+                reps = portsf.writelines(ports)
+                if reps is not True:
+                    print("[Warning] New port cannot been changed.")
+                else:
+                    rfp = conf.path(f"storage/recent.{type}.port")
+                    rfile = f(rfp)
+                    rfile.write(f"\n{str(nprt)}")
+                    
+                 
 
                     
