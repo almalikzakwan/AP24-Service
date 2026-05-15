@@ -18,11 +18,15 @@ class kickoff:
         ports = portsf.readlines()
         conf_ports = {}
         for port in ports:
-            utext = re.sub(r'[\t\[\]\n]', '', str(port))
-            ctext = re.sub(r'[,\d]','',utext).strip()
-            cport = re.findall(r'\d+',port)
-            conf_ports[f"{ctext}"] = f"{cport}"
+            ctext = re.sub(r"\{.*?\}|\s+","",port)
+            cport = re.search(r'\{(.*?)\}', port)
+            iprts = {}
+            for item in cport.group(1).strip().split(","):
+                key, value = item.strip().split(":")
+                iprts[key] = value
 
+            conf_ports[ctext] = iprts
+        
         confs = conf.developments()
         #todo:  oldport, read, replace and write
         rt = root()
@@ -39,15 +43,16 @@ class kickoff:
                     # print(value)
             else:
                 fn = os.path.basename(cf)
-                oprts = ast.literal_eval(conf_ports[fn])
-                #todo: save port with filename and replace port in config file
-                print(oprts)
-                for oprt in oprts:
-                    print(oprt)
+                oprts = conf_ports[fn]
+                # oprts = {'80': 'default', '443': 'ssl'}
+                for oprt, type in oprts.items():
                     nprt = randoms.randint(4430, 65535)
-                    rs = r.line(cfpp, i, str(oprt), str(nprt))
-                    if rs != True:
+                    ports[i] = ports[i].replace(str(oprt),str(nprt))
+                    print(ports[i])
+                    reps = portsf.writelines(ports)
+                    if reps != True:
                         print(f"[INFO] Port cannot being change. An Error Occured. File: {cfpp}, Line: {i}")
-                    # file.write()
+                #todo: save recent port into storage/recent.[default/ssl].port
+                #todo: multiple port forwarding, firewall inbound rule. 
 
                     
