@@ -29,14 +29,4 @@ class replace:
             print(f"Replace File Error: {e}")
             return False
         
-    def line(fp: str, line:int ,ols: str, nes: str):
-        """ replace string in file line"""
-        # initiate file classing
-        file = f(fp)
-        readlines = file.readlines()
-        text = readlines[line].replace(ols, nes)
-        print(text)
-        readlines[line] = text
-
-        return True
     
