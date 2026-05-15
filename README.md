@@ -48,9 +48,6 @@ AddType application/x-httpd-php .php
 PHPIniDir "Z:/PHP/php-8.3.30-Win32-vs16-x64/"
 ```
 and add _Include conf/php.conf_ in bottom file httpd.conf in your Apache24 folder.
-also **_Include conf/extra/developments/*.conf_** in httpd-vhosts.conf if you have extra development.
-
-change your port in config/lines.conf file if you have custom modified port.
 
 example available in config folder.
 
