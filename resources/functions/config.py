@@ -6,7 +6,7 @@ class config:
     def __init__(self):
         self.rt = r()
         self.AP24Path = self.rt.AP24Path()
-
+    
     def developments(self, dp: str = "config/development.conf") -> tuple:
         """
         file that need to change port
@@ -23,6 +23,6 @@ class config:
             f"{APPath}/{developments}"
         ]
     
-    def ports(self, dp:str = "config/ports.conf"):
-        """ return config/ports.conf """
-        return f"{self.AP24Path}/{dp}"
+    def path(self, dp:str):
+        """ return path from given path """
+        return f"{self.AP24Path}{dp}"
