@@ -51,7 +51,8 @@ class kickoff:
                 # file or directory that need to change custom port
                 # this is my directory that need to change port in Apache24
                 # my example for developments was conf/extra/developments, change your path instead in config/development.conf.
-                confs = config.path()
+                conf = config()
+                confs = conf.developments()
 
                 for cf in confs:
                     # check if path is file or directory
