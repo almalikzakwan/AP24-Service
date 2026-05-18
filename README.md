@@ -60,9 +60,8 @@ MySQLServiceName123
 Z:/PHP/php-8.3.30-Win32-vs16-x64
 ```
 
-**_AP24-Service/config/development.conf_**
+**_AP24-Service/config/development.conf_** ( developments folder from Apache24 root path if you split your VirtualHost file.)
 ```txt
-# developments folder from Apache24 root path
 conf/extra/developments
 ```
 
