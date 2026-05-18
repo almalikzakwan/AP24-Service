@@ -32,15 +32,16 @@ class kickoff:
                     if reps is not True:
                         print("[Warning] New port cannot been change in config/ports.conf")
                     else:
-                        rfp = conf.path(f"/storage/recent.{type}.port")
-                        rfile = f(rfp)
-                        rfile.write(f"{str(nprt)}\n")
-
-                    r.string(path, str(oprt), str(nprt))
+                        #todo: read and remove firewall inbound
+                        r.string(path, str(oprt), str(nprt))
                     
-                    fwll.addInbound(port = nprt)
-                    if i == 0 or i == 1:
-                        fwll.portForwarding(nprt, 80 if type == "default" else 443)
+                        if i == 0 or i == 1:
+                            rfp = conf.path(f"/storage/recent.{type}.port")
+                            rfile = f(rfp)
+                            rfile.write(f"{str(nprt)}\n")
+                            fwll.delInbound(port = nprt)
+                            fwll.addInbound(port = nprt)
+                            fwll.portForwarding(nprt, 80 if type == "default" else 443)
 
             php.write()
 
