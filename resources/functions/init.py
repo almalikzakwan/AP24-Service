@@ -32,7 +32,6 @@ class kickoff:
                     if reps is not True:
                         print("[Warning] New port cannot been change in config/ports.conf")
                     else:
-                        #todo: read and remove firewall inbound
                         r.string(path, str(oprt), str(nprt))
                     
                         if i == 0 or i == 1:
