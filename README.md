@@ -30,7 +30,7 @@ PHPIniDir "Z:/PHP/php-8.3.30-Win32-vs16-x64/"
 ```
 add [ _Include conf/php.conf_ ] in bottom file **Apache24/conf/httpd.conf** in your Apache24 folder.
   
-2. cd into to ../path/to/Apache24/bin using administrator cmd and run below command to add services with your custom name and place.
+2. cd into to ../path/to/Apache24/bin using administrator cmd and run below command to add services with your custom name.
 ```batch
 .\httpd.exe -k install -n "Apacheservicename2466"
 ```
