@@ -18,13 +18,14 @@ class replace:
 
             if upc != content:
                 file.write(string = upc, mode="w")
+                print(f"[INFO] Replaced all '{ols}' with '{nes}' in [ {fn} ]")
             else:
-                print(f"No '{ols}' found in {fn}.")
-
-            print(f"[INFO] Replaced all '{ols}' with '{nes}' in {fn}")
+                print(f"[Warning] No '{ols}' found in [ {fn} ].")
 
             return True
 
         except (OSError, IOError) as e:
             print(f"Replace File Error: {e}")
             return False
+        
+    

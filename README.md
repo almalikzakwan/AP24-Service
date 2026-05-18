@@ -17,7 +17,7 @@ cd Ap24-service
 runas /<user>:Administrator <start>:<stop>:<status>:<restart>.bat
 ```  
 
-Create this 5 config files and place your file name in the folder like example below,
+Create this config files and place your file name in the folder like example below,
 
 **_AP24-Service/config/service.conf_**
 ```txt
@@ -38,6 +38,13 @@ Z:/PHP/php-8.3.30-Win32-vs16-x64
 ```txt
 # developments folder from Apache24 root path
 conf/extra/developments
+```
+
+**_AP24-Service/config/ports.conf_**
+```txt
+httpd.conf {80:default}
+httpd-ssl.conf {443:ssl}
+httpd-vhosts.conf {80:default,443:ssl}
 ```
 
 **_Apache24/config/php.conf_**

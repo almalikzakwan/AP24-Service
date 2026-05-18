@@ -8,4 +8,4 @@ class root:
         return f"{self.cwd.replace("\\","/")}/../../Apache24"
     
     def AP24Path(self):
-        return f"{self.cwd.replace("\\","/")}/../"
+        return f"{self.cwd.replace("\\","/")}/.."
