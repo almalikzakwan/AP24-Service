@@ -34,7 +34,60 @@ add [ _Include conf/php.conf_ ] in bottom file **Apache24/conf/httpd.conf** in y
 ```batch
 .\httpd.exe -k install -n "Apacheservicename2466"
 ```
+
+3. To add development project. currently im using split folder from Apache24/conf/extra/httpd-vhost.conf folder.
+from my example, i create a folder at Apache24/conf/extra/developments and put below text in Apache24/conf/extra/httpd-vhosts.conf  
+```txt
+Include conf/extra/developments/*.conf
+```  
+this is my example in **Apache24/conf/extra/httpd-vhosts.conf** im only put below configuration as a default website in htdocs/index.html
+
+```txt
+define ROOT "Z:/WebServer/Apache/httpd-2.4.54-win64-VC15/Apache24/htdocs"
+define SITE "localhost"
+
+#configutaion for default ( http )
+<VirtualHost *:80>
+    DocumentRoot "${ROOT}"
+    ServerName ${SITE}
+    ServerAlias *.${SITE} ${SITE}
+    <Directory "${ROOT}">
+        AllowOverride All
+        Require all granted
+    </Directory>
+    ErrorLog "logs/localhost-error.log"
+    CustomLog "logs/localhost-access.log" combined
+</VirtualHost>
+
+# configuration for ssl ( https )
+<VirtualHost *:443>
+    DocumentRoot "${ROOT}"
+    ServerName ${SITE}
+    ServerAlias *.${SITE}
+    <Directory "${ROOT}">
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    SSLEngine on
+    SSLCertificateFile          "Z:/WebServer/Apache/httpd-2.4.54-win64-VC15/Apache24/conf/certs/default/localhost.crt"
+    SSLCertificateKeyFile       "Z:/WebServer/Apache/httpd-2.4.54-win64-VC15/Apache24/conf/certs/default/localhost.key"
+
+    ErrorLog "logs/localhost-ssl-error.log"
+    CustomLog "logs/localhost-ssl-access.log" combined
+</VirtualHost>
+
+Include conf/extra/developments/*.conf
+```  
+and add your.prettyurl.conf in Apache24/conf/extra/developments folder for external project. You can use above example config to configure your external project.
+
+for ssl configuration file, currently im using self signed ssl. your can refer below repo to configure ssl file in your windows.  
+[Self-Signed SSL Executer](https://github.com/almalikzakwan/Selfsigned-SSL-Executer)
+  
+and place all file from outputs folder to **Apache24/conf/certs**
+
 ---
+
 ### AP24-Service Installation
 git clone / place this repo alongside with Apache24 folder (httpd-{version} folder)
 ```
@@ -73,6 +126,8 @@ httpd-vhosts.conf {80:default,443:ssl}
 ```
   
 example available in config folder.
+
+Run main.bat to in AP24-Service folder as administrator. 
 
 ## Info  
 .bat file must be running in administrator mode.
