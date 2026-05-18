@@ -63,6 +63,7 @@ class firewall:
     def run(self, command:str = [], type:str = "", port:int = 80) -> bool:
         try:
             subprocess.run(command, check=True, capture_output=True, text=True)
+            print(f"[INFO] Firewall Command: [ {type}] execute successfully on port: [ {port} ] ")
             return True
         except subprocess.CalledProcessError as e:
             print(f"Failed to run command: [ {type} ] on port: [ {port} ] . error: {e}")
