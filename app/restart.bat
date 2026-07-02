@@ -6,8 +6,6 @@ cd /d %~dp0
 REM import config
 call config.bat 
 
-REM import clean firewall rule
-call clean_rule.bat
 REM import clean port forwarding function
 call clean_port_forwarding.bat
 

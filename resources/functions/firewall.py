@@ -24,7 +24,7 @@ class firewall:
             f"protocol={protocol}",
             f"localport={port}"
         ]
-        self.run(command, port)
+        self.run(command, "add", port)
 
     def portForwarding(self, port:str, listenport:str) -> bool:
         """
@@ -43,7 +43,7 @@ class firewall:
             f"connectport={port}",
             "connectaddress=127.0.0.1"
         ]
-        self.run(command, port)
+        self.run(command, "portforwarding", port)
         
     def delInbound(self, port:str) -> bool:
         """ 
@@ -58,14 +58,15 @@ class firewall:
             f"name=Apache Apache Custom Port {port}"
         ]
 
-        self.run(command, port)
+        self.run(command, "delete", port)
         
-    def run(self, command:str = [], port:int = 80) -> bool:
+    def run(self, command:str = [], type:str = "", port:int = 80) -> bool:
         try:
             subprocess.run(command, check=True, capture_output=True, text=True)
+            print(f"[INFO] Firewall Command: [ {type}] execute successfully on port: [ {port} ] ")
             return True
         except subprocess.CalledProcessError as e:
-            print(f"Failed to delete rule Apache Custom Port {port}")
+            print(f"Failed to run command: [ {type} ] on port: [ {port} ] . error: {e}")
             return False
         except Exception as e:
             print(f"An unexpected error occured: {e}")

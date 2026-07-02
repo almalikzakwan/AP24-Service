@@ -30,6 +30,13 @@ class files:
         """ read all lines in file """
         file = open(self.path, mode)
         return file.readlines()
+    
+    def writelines(self, list:list, mode:str ="w") -> bool:
+        """ read all lines in file """
+        file = open(self.path, mode)
+        file.writelines(list)
+        self.close(file)
+        return True
 
     def close(self, file) -> bool:
         """ close file after execution """
