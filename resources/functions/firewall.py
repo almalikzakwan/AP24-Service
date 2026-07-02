@@ -55,7 +55,7 @@ class firewall:
             "firewall",
             "delete",
             "rule",
-            f"name=Apache Apache Custom Port {port}"
+            f"name=Apache Custom Port {port}"
         ]
 
         self.run(command, "delete", port)
