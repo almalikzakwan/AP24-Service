@@ -16,3 +16,11 @@ set "databasefilepath=%CD%\..\config\database.conf"
 for /f "usebackq delims=" %%i in (%databasefilepath%) do (
     set "database_name=%%i"
 )
+
+REM automatic get your current path here
+set "redisfilepath=%CD%\..\config\redis.conf"
+
+for /f "usebackq delims=" %%i in (%redisfilepath%) do (
+    set "redis_name=%%i"
+)
+

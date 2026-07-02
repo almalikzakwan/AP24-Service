@@ -27,6 +27,9 @@ sc query %service_name%
 echo [INFO] Checking %database_name% status.. 
 sc query %database_name%
 
+echo [INFO] Checking %redis_name% status.. 
+sc query %redis_name%
+
 echo [WARN] this program will exit after timeout !
 timeout /t 48
 

@@ -33,4 +33,12 @@ REM start database service
 echo [INFO] Starting %database_name% service......
 net start %database_name%
 
+REM stop redis service
+echo [INFO] Restarting %redis_name% service.....
+net stop %redis_name%
+
+REM start redis service
+echo [INFO] Starting %redis_name% service......
+net start %redis_name%
+
 pause

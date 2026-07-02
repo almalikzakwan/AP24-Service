@@ -23,6 +23,12 @@ net stop %database_name%
 
 echo %database_name% also cumming......
 
+REM stop redis
+echo [INFO] Stopping %redis_name% service
+net stop %redis_name%
+
+echo %redis_name% ahhhhhhhh ...... cumming last round.....
+
 pause
 
 REM make if else with error level for stoping service
