@@ -38,7 +38,7 @@ class kickoff:
                             rfp = conf.path(f"/storage/recent.{type}.port")
                             rfile = f(rfp)
                             rfile.write(f"{str(nprt)}\n")
-                            fwll.delInbound(port = nprt)
+                            fwll.delInbound(port = oprt)
                             fwll.addInbound(port = nprt)
                             fwll.portForwarding(nprt, 80 if type == "default" else 443)
 
