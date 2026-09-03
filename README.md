@@ -81,7 +81,7 @@ Include conf/extra/developments/*.conf
 ```  
 and add your.prettyurl.conf in Apache24/conf/extra/developments folder for external project. You can use above example config to configure your external project.
 
-for ssl configuration file, currently im using self signed ssl. your can refer below repo to configure ssl file in your windows.  
+for ssl configuration file, currently im using self signed SSL. your can refer below repo to configure ssl file in your windows.  
 [Self-Signed SSL Executer](https://github.com/almalikzakwan/Selfsigned-SSL-Executer)
   
 and place all file from outputs folder to **Apache24/conf/certs**
